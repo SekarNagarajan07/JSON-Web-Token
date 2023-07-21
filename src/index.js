@@ -38,7 +38,15 @@ server.post("/register", async (req, res) => {
   try {
     // 1. check if user exist
     const user = fakeDB.find((user) => user.email === email);
+    if (user) throw new Error("User already exist");
+    // 2. If not user exist, hash the password
     const hashedPassword = await hash(password, 10);
+    // 3. Insert the user in "database"
+    fakeDB.push({
+      id: fakeDB.length,
+      email,
+      password: hashedPassword,
+    });
     console.log(hashedPassword);
   } catch (error) {}
 });
