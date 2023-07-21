@@ -5,6 +5,8 @@ const cors = require("cors");
 const { verify } = require("jsonwebtoken");
 const { hash, compare } = require("bcryptjs");
 
+const { fakeDB } = require("./fakeDB.js");
+
 const server = express();
 
 // use express middleware for easier cookie handling
@@ -35,7 +37,7 @@ server.post("/register", async (req, res) => {
 
   try {
     // 1. check if user exist
-
+    const user = fakeDB.find((user) => user.email === email);
     const hashedPassword = await hash(password, 10);
     console.log(hashedPassword);
   } catch (error) {}
