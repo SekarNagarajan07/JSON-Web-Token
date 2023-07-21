@@ -47,6 +47,11 @@ server.post("/register", async (req, res) => {
       email,
       password: hashedPassword,
     });
-    console.log(hashedPassword);
-  } catch (error) {}
+    res.send({ message: "User Created" });
+    console.log(fakeDB);
+  } catch (error) {
+    res.send({
+      error: `${error.message}`,
+    });
+  }
 });
