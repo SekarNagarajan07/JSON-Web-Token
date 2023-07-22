@@ -55,3 +55,16 @@ server.post("/register", async (req, res) => {
     });
   }
 });
+
+// login a user
+
+server.listen("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+  } catch (error) {}
+});
+
+server.listen(process.env.PORT, () => {
+  console.log(`Server listening on port ${process.env.PORT}`);
+});
