@@ -62,6 +62,15 @@ server.listen("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Find user in database, If not exits send error
+    const user = fakeDB.find((user) => user.email === email);
+    if (!user) throw new Error("User does not exist");
+
+    // Compare encrypted password and see if it
+    //checks outerHeight, Send errors if not
+
+    const valid = await compare(password, user.password);
+    if (!valid) throw new Error("password not correct");
   } catch (error) {}
 });
 
