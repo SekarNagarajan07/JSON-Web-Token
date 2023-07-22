@@ -11,3 +11,8 @@ const createRefreshToken = (userId) => {
     expiresIn: "7d",
   });
 };
+
+module.exports = {
+  createAccessToken,
+  createRefreshToken,
+};
