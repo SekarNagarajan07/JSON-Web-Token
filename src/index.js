@@ -4,8 +4,8 @@ const cookieparser = require("cookie-parser");
 const cors = require("cors");
 const { verify } = require("jsonwebtoken");
 const { hash, compare } = require("bcryptjs");
-
 const { fakeDB } = require("./fakeDB.js");
+const { createAccessToken, createRefreshToken } = require("./tokens.js");
 
 const server = express();
 
@@ -71,6 +71,15 @@ server.listen("/login", async (req, res) => {
 
     const valid = await compare(password, user.password);
     if (!valid) throw new Error("password not correct");
+
+    // create refresh and accesstoken
+    const accesstoken = createAccessToken(user.id);
+    const refreshtoken = createRefreshToken(user.id);
+
+    // put the refreshtoken in the database
+
+    user.refreshtoken = refreshtoken;
+    console.log(fakeDB);
   } catch (error) {}
 });
 
